@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('new location', async ({ page }) => {
+test('Testing the address adding system', async ({ page }) => {
     await page.goto('https://cloudshop.vclass.in.th/');
     await page.getByRole('link', { name: 'เข้าสู่ระบบสำหรับสมาชิก' }).click();
     await page.getByLabel('Qr Code Image').click();
@@ -9,7 +9,6 @@ test('new location', async ({ page }) => {
     await page.getByLabel('รหัสผ่าน *').fill('รหัส123456');
     await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
     await page.getByRole('link', { name: '' }).click();
-    //   for (let i = 0; i < 5; i++) {
     await page.getByRole('link', { name: ' ที่อยู่ ' }).click();
     await page.getByRole('link', { name: 'เพิ่มที่อยู่ใหม่ ' }).click();
     await page.getByLabel('ชื่อที่อยู่').click();
@@ -29,5 +28,4 @@ test('new location', async ({ page }) => {
     await page.getByRole('button', { name: 'บันทึก' }).click();
     await page.getByRole('link', { name: ' ที่อยู่ ' }).click();
     await expect(page).toHaveTitle(/แบ่งปั๋น/);
-    //   }
 });
