@@ -10,3 +10,4 @@ test('login', async ({ page }) => {
   await page.getByLabel('รหัสผ่าน *').fill('รหัส123456');
   await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
 });
+
