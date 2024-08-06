@@ -7,6 +7,6 @@ test('login', async ({ page }) => {
   await page.getByLabel('Qr Code Image').click();
   await page.getByLabel('Qr Code Image').fill('นัทธี@คน.ไทย');
   await page.getByLabel('รหัสผ่าน *').click();
-  await page.getByLabel('รหัสผ่าน *').fill('รหัส123456');
+  await page.getByLabel('รหัสผ่าน *').fill('');
   await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
 });
