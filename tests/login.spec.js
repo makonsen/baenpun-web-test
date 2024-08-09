@@ -1,12 +1,30 @@
 import { test, expect } from '@playwright/test';
 
-test('login', async ({ page }) => {
-  test.setTimeout(1200000);
-  await page.goto('http://localhost/');
-  await page.getByRole('link', { name: 'เข้าสู่ระบบสำหรับสมาชิก' }).click();
-  await page.getByLabel('Qr Code Image').click();
-  await page.getByLabel('Qr Code Image').fill('นัทธี@คน.ไทย');
-  await page.getByLabel('รหัสผ่าน *').click();
-  await page.getByLabel('รหัสผ่าน *').fill('');
-  await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
+test('test', async ({ page }) => {
+  await page.goto('http://localhost/login');
+  await page.getByRole('link', { name: 'สมัครสมาชิก' }).click();
+  await page.getByLabel('ชื่อผู้ใช้').click();
+  await page.getByLabel('ชื่อผู้ใช้').fill('นัทธี  มกรเสน_');
+  await page.getByLabel('อีเมล').click();
+  await page.getByLabel('อีเมล').fill('makonsennatthi@gmail.com');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowLeft');
+  await page.getByLabel('อีเมล').press('ArrowRight');
+  await page.getByLabel('อีเมล').fill('makonsennatthi_1@gmail.com');
+  await page.getByLabel('ตั้งรหัสผ่าน').click();
+  await page.getByLabel('ตั้งรหัสผ่าน').fill('123456789');
+  await page.getByLabel('ยืนยันรหัสผ่าน').click();
+  await page.getByLabel('ยืนยันรหัสผ่าน').fill('123456789');
+  await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
+  await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');
+  await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
 });
