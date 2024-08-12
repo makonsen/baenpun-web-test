@@ -26,7 +26,7 @@ test.describe('New registration and login', () => {
         await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
     });
 
-    test('login', async ({ page }) => {
+    test('Log in with the newly created user.', async ({ page }) => {
         // ล็อคอิน Login
         await page.goto('http://localhost/login');
         // ใส่ชื่อผู้ใช้ Enter username
