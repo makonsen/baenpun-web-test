@@ -25,6 +25,7 @@ test.describe('New registration and login', () => {
         await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');
         await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
     });
+    // ยืนยันบัญชี Verify Account
 
     test('Log in with the newly created user.', async ({ page }) => {
         // ล็อคอิน Login
