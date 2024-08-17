@@ -1,13 +1,34 @@
 import { test, expect } from '@playwright/test';
-
+const Dates = (new Date()).getTime();
+const fs = require('fs');
 test('test', async ({ page }) => {
     await page.goto('http://localhost/');
     await page.getByRole('link', { name: 'เข้าสู่ระบบสำหรับสมาชิก' }).click();
     await page.getByLabel('Qr Code Image').click();
-    await page.getByLabel('Qr Code Image').fill('user_1723477894195');
+    await page.getByLabel('Qr Code Image').fill('testing1');
     await page.getByLabel('รหัสผ่าน *').click();
-    await page.getByLabel('รหัสผ่าน *').fill('1723477894195');
+    await page.getByLabel('รหัสผ่าน *').fill('123456789');
     await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
     await page.getByRole('link', { name: '' }).click();
-    
+    await page.getByRole('link', { name: ' ที่อยู่ ' }).click();
+    await page.getByRole('link', { name: 'เพิ่มที่อยู่ใหม่ ' }).click();
+    await page.getByLabel('ชื่อที่อยู่').click();
+    await page.getByLabel('ชื่อที่อยู่').fill('user_'+Dates);
+    await page.getByLabel('ชื่อ-นามสกุล').click();
+    await page.getByLabel('ชื่อ-นามสกุล').fill('natthi makonsen');
+    await page.getByLabel('เบอร์โทรศัพท์').click();
+    await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');
+    await page.getByLabel('ที่อยู่', { exact: true }).click();
+    await page.getByLabel('ที่อยู่', { exact: true }).fill('0/0');
+    await page.getByPlaceholder('ค้นหาจังหวัด').click();
+    await page.getByPlaceholder('ค้นหาจังหวัด').fill('ตาก');
+    await page.locator('div').filter({ hasText: /^ตาก \/ Tak$/ }).nth(1).click();
+    await page.getByPlaceholder('ค้นหาเขต/อำเภอ').click();
+    await page.getByPlaceholder('ค้นหาเขต/อำเภอ').fill('พบพระ');
+    await page.locator('div').filter({ hasText: /^พบพระ \/ Phop Phra$/ }).nth(1).click();
+    await page.getByPlaceholder('ค้นหาแขวง/ตำบล หรือ เลขไปรษณีย์').click();
+    await page.getByPlaceholder('ค้นหาแขวง/ตำบล หรือ เลขไปรษณีย์').fill('คีรีราษฎร์');
+    await page.locator('[id="\\36 30703"]').click();
+    await page.getByRole('button', { name: 'บันทึก' }).click();
+    await page.getByRole('link', { name: ' ที่อยู่ ' }).click();
 });
