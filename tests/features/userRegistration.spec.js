@@ -1,10 +1,7 @@
 import { test, expect } from '@playwright/test';
 const Dates = (new Date()).getTime();
-const fs = require('fs');
 
 test.describe('New registration and login', () => {
-
-
     test('register', async ({ page }) => {
         const email = 'makonsennatthi_' + Dates + '@gmail.com';
         // ไปหน้าสมัครสมาชิก Go to the registration page
@@ -45,8 +42,4 @@ test.describe('New registration and login', () => {
         await page.goto('http://localhost/');
         await page.getByRole('link', { name: '' }).click();
     });
-    // let details = 'let user_name = '+'user_'+Dates;
-    // fs.writeFile('user/'+Dates+'.js', details, (err) => {
-    //     if (err) throw err;
-    // });
 });
