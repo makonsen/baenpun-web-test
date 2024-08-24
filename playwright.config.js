@@ -26,7 +26,7 @@ module.exports = defineConfig({
   use: {
     video: 'on',
     launchOptions:{
-      slowMo: 500
+      slowMo: 300
     },
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
