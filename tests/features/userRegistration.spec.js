@@ -41,5 +41,6 @@ test.describe('New registration and login', () => {
         await page.getByRole('link', { name: 'Baengpun' }).click();
         await page.goto('http://localhost/');
         await page.getByRole('link', { name: '' }).click();
+        await page.getByRole('button', { name: 'Close' }).click();
     });
 });
