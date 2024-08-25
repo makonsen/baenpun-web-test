@@ -2,8 +2,6 @@ import { test, expect } from '@playwright/test';
 const Dates = (new Date()).getTime();
 test('test', async ({ page }) => {
     await page.goto('http://localhost/');
-    // await page.pause();
-    // await page.waitForSelector('Qr Code Image', {timeout : 5000});
     await page.getByRole('link', { name: 'เข้าสู่ระบบสำหรับสมาชิก' }).click();
     await page.getByLabel('Qr Code Image').click();
     await page.getByLabel('Qr Code Image').fill('testing1');
