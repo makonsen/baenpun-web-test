@@ -97,6 +97,5 @@ test.describe('New registration and login', () => {
         await expect(page.getByLabel('ชื่อผู้ใช้')).toHaveValue('user_' + new_password);
         await expect(page.getByLabel('ชื่อ-นามสกุล')).toHaveValue('มกรเสน  user_' + new_password);
         await expect(page.getByLabel('อีเมล')).toHaveValue('makonsennatthi_' + new_password + '@gmail.com');
-        // await expect(page.getByRole('link', { name: 'บัญชีของฉัน (มกรเสน' })).toHaveText('บัญชีของฉัน (มกรเสน  user_' + new_password + ')');
     }); 
 });
