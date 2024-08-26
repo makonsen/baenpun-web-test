@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 const Dates = (new Date()).getTime();
+test.use({
+    launchOptions: {
+        slowMo: 500
+    },
+});
 test.describe('New registration and login', () => {
     test('register', async ({ page }) => {
         const email = 'makonsennatthi_' + Dates + '@gmail.com';
@@ -38,12 +43,11 @@ test.describe('New registration and login', () => {
         await page.getByLabel('รหัสผ่าน *').click();
         await page.getByLabel('รหัสผ่าน *').fill('' + Dates);
         await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
-        // ----------- //
+
+        // เปลี่ยนรหัสผ่าน
         await page.getByRole('link', { name: 'Baengpun' }).click();
         await page.getByRole('link', { name: '' }).click();
         await page.getByRole('button', { name: 'Close' }).click();
-
-        // เปลี่ยนรหัสผ่าน
         // รหัสเดิม
         await page.getByRole('link', { name: ' แก้ไขรหัสผ่าน ' }).click();
         await page.locator('input[name="password"]').click();
@@ -57,8 +61,8 @@ test.describe('New registration and login', () => {
         await page.locator('input[name="confirm_password"]').click();
         await page.locator('input[name="confirm_password"]').fill('' + new_password);
         await page.getByRole('button', { name: '' }).click();
-        await page.screenshot({ path: 'password/fullpage_screenshot'+new_password+'.png', fullPage: true });
         await page.getByRole('button', { name: 'ตกลง' }).click();
+
         // เปลี่ยนข้อมูลอื่นๆ
         await page.getByRole('link', { name: ' ข้อมูลของฉัน ' }).click();
         // ชื่อผู้ใช้
@@ -67,10 +71,12 @@ test.describe('New registration and login', () => {
         // ชื่อนามสกุล
         await page.getByLabel('ชื่อ-นามสกุล').click();
         await page.getByLabel('ชื่อ-นามสกุล').fill('มกรเสน  user_' + new_password);
+        // อีเมลล์
+        await page.getByLabel('อีเมล').click();
+        await page.getByLabel('อีเมล').fill('makonsennatthi_' + new_password + '@gmail.com');
         // ใส่รหัสยืนยัน
         await page.getByLabel('กรุณาใส่รหัสผ่านเพื่อแก้ไขข้อมูลส่วนตัว').click();
         await page.getByLabel('กรุณาใส่รหัสผ่านเพื่อแก้ไขข้อมูลส่วนตัว').fill('' + new_password);
-        
         await page.getByRole('button', { name: 'บันทึก' }).click();
     });
     
@@ -83,6 +89,14 @@ test.describe('New registration and login', () => {
         await page.getByLabel('รหัสผ่าน *').click();
         await page.getByLabel('รหัสผ่าน *').fill('' + new_password);
         await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
+        // ตรวจสอบค่าต่างๆ
+        await page.goto('http://localhost/');
+        await page.getByRole('link', { name: '' }).click();
+        await page.getByRole('button', { name: 'Close' }).click();
         await expect(page.getByRole('link', { name: 'บัญชีของฉัน (มกรเสน' })).toHaveText('บัญชีของฉัน (มกรเสน  user_' + new_password + ')');
+        await expect(page.getByLabel('ชื่อผู้ใช้')).toHaveValue('user_' + new_password);
+        await expect(page.getByLabel('ชื่อ-นามสกุล')).toHaveValue('มกรเสน  user_' + new_password);
+        await expect(page.getByLabel('อีเมล')).toHaveValue('makonsennatthi_' + new_password + '@gmail.com');
+        // await expect(page.getByRole('link', { name: 'บัญชีของฉัน (มกรเสน' })).toHaveText('บัญชีของฉัน (มกรเสน  user_' + new_password + ')');
     }); 
 });
