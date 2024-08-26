@@ -43,10 +43,10 @@ test.describe('New registration and login', () => {
         await page.getByLabel('รหัสผ่าน *').fill('' + Dates);
         await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
         await page.getByRole('link', { name: 'Baengpun' }).click();
+        // ตรวจสอบค่าต่างๆ
         await page.goto('http://localhost/');
         await page.getByRole('link', { name: '' }).click();
         await page.getByRole('button', { name: 'Close' }).click();
-        // ตรวจสอบค่าต่างๆ
         await expect(page.getByRole('link', { name: 'บัญชีของฉัน (มกรเสน' })).toHaveText('บัญชีของฉัน (มกรเสน  user_' + Dates + ')');
         await expect(page.getByLabel('ชื่อผู้ใช้')).toHaveValue('user_' + Dates);
         await expect(page.getByLabel('ชื่อ-นามสกุล')).toHaveValue('มกรเสน  user_' + Dates);
