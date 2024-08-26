@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
 const Dates = (new Date()).getTime();
-
+test.use({
+    launchOptions: {
+        slowMo: 500
+    },
+});
 test.describe('New registration and login', () => {
     test('register', async ({ page }) => {
         const email = 'makonsennatthi_' + Dates + '@gmail.com';
@@ -26,7 +30,7 @@ test.describe('New registration and login', () => {
         await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');
         await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
         // ยืนยันบัญชี Verify Account
-        await page.goto('http://localhost/scripts/verify-email-auto?email='+email)
+        await page.goto('http://localhost/scripts/verify-email-auto?email=' + email)
     });
 
     test('Log in with the newly created user.', async ({ page }) => {
@@ -42,5 +46,10 @@ test.describe('New registration and login', () => {
         await page.goto('http://localhost/');
         await page.getByRole('link', { name: '' }).click();
         await page.getByRole('button', { name: 'Close' }).click();
+        // ตรวจสอบค่าต่างๆ
+        await expect(page.getByRole('link', { name: 'บัญชีของฉัน (มกรเสน' })).toHaveText('บัญชีของฉัน (มกรเสน  user_' + Dates + ')');
+        await expect(page.getByLabel('ชื่อผู้ใช้')).toHaveValue('user_' + Dates);
+        await expect(page.getByLabel('ชื่อ-นามสกุล')).toHaveValue('มกรเสน  user_' + Dates);
+        await expect(page.getByLabel('อีเมล')).toHaveValue('makonsennatthi_' + Dates + '@gmail.com');
     });
 });
