@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 const Dates = (new Date()).getTime();
+const serverUrl = process.env.SERVER_URL || 'http://localhost';
 test('test', async ({ page }) => {
-    await page.goto('http://localhost/');
+    await page.goto(serverUrl);
     await page.getByRole('link', { name: 'เข้าสู่ระบบสำหรับสมาชิก' }).click();
     await page.getByLabel('Qr Code Image').click();
     await page.getByLabel('Qr Code Image').fill('testing1');
@@ -29,7 +30,7 @@ test('test', async ({ page }) => {
     await page.getByPlaceholder('ค้นหาแขวง/ตำบล หรือ เลขไปรษณีย์').fill('คีรีราษฎร์');
     await page.locator('[id="\\36 30703"]').click();
     await page.getByRole('button', { name: 'Close' }).click();
-    await page.screenshot({ path: 'Address/fullpage_screenshot'+Dates+'.png', fullPage: true });
+    // await page.screenshot({ path: 'Address/fullpage_screenshot'+Dates+'.png', fullPage: true });
     await page.getByRole('button', { name: 'บันทึก' }).click();
     await page.getByRole('link', { name: ' ที่อยู่ ' }).click();
 });

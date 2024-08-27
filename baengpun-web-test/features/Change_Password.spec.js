@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 const Dates = (new Date()).getTime();
+const serverUrl = process.env.SERVER_URL || 'http://localhost';
 test.use({
     launchOptions: {
         slowMo: 500
@@ -9,7 +10,7 @@ test.describe('New registration and login', () => {
     test('register', async ({ page }) => {
         const email = 'makonsennatthi_' + Dates + '@gmail.com';
         // ไปหน้าสมัครสมาชิก Go to the registration page
-        await page.goto('http://localhost/register');
+        await page.goto(serverUrl + '/register');
         // ใส่ชื่อผู้ใช้ Enter username
         await page.locator('#username').click();
         await page.locator('#username').fill('user_' + Dates);
@@ -30,13 +31,14 @@ test.describe('New registration and login', () => {
         await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');
         await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
         // ยืนยันบัญชี Verify Account
-        await page.goto('http://localhost/scripts/verify-email-auto?email=' + email)
+        await page.goto(serverUrl + '/scripts/verify-email-auto?email=' + email);
+        // await page.goto('http://localhost/scripts/verify-email-auto?email=' + email)
     });
 
     const new_password = (new Date()).getTime();
     test('Change personal information', async ({ page }) => {
         // ล็อคอิน Login
-        await page.goto('http://localhost/login');
+        await page.goto(serverUrl + '/login');        
         await page.getByLabel('Qr Code Image').click();
         await page.getByLabel('Qr Code Image').fill('user_' + Dates);
         // ใส่รหัสผ่าน Enter password
@@ -82,7 +84,7 @@ test.describe('New registration and login', () => {
     
     test('Log in with a new password', async ({ page }) => {
         // ล็อคอิน Login
-        await page.goto('http://localhost/login');
+        await page.goto(serverUrl + '/login');        
         await page.getByLabel('Qr Code Image').click();
         await page.getByLabel('Qr Code Image').fill('user_' + new_password);
         // ใส่รหัสผ่าน Enter password
@@ -90,7 +92,7 @@ test.describe('New registration and login', () => {
         await page.getByLabel('รหัสผ่าน *').fill('' + new_password);
         await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
         // ตรวจสอบค่าต่างๆ
-        await page.goto('http://localhost/');
+        await page.goto(serverUrl);        
         await page.getByRole('link', { name: '' }).click();
         await page.getByRole('button', { name: 'Close' }).click();
         await expect(page.getByRole('link', { name: 'บัญชีของฉัน (มกรเสน' })).toHaveText('บัญชีของฉัน (มกรเสน  user_' + new_password + ')');
