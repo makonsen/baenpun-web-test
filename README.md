@@ -11,6 +11,8 @@ install node.js
 ```
 
 # command line
-```bash
 
+ใช้คำสั่งนี้เเพื่อรันไฟล์ทดสอบทั้งหมด
+```bash
+npx playwright test
 ```
