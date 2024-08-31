@@ -4,6 +4,12 @@ clone Test Baengpun website
 git clone https://github.com/makonsen/baenpun-web-test
 ```
 
+โครนเว็บแบ่งปั๋น
+```bash
+git clone [https://github.com/makonsen/baenpun-web-test](https://github.com/padillareyj/baengpun-web)
+```
+
+
 # node.js
 install node.js
 ```bash
