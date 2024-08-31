@@ -9,14 +9,14 @@ To get started, clone the repository to your local machine:
 git clone https://github.com/makonsen/baenpun-web-test.git
 ```
 
-###2. Install Dependencies
+### 2. Install Dependencies
 Navigate to the project directory and install the necessary dependencies using npm:
 ```bash
 cd baenpun-web-test
 npm install
 ```
 
-###3. Run Tests
+### 3. Run Tests
 To run the Playwright tests, use the following command:
 ```bash
 npx playwright test
