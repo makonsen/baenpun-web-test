@@ -1,4 +1,4 @@
 # Test Baengpun website
 ```bash
-git clone 
+git clone https://github.com/makonsen/baenpun-web-test
 ```
