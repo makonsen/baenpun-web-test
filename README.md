@@ -16,26 +16,8 @@ cd baenpun-web-test
 npm install
 ```
 
-โครนเว็บแบ่งปั๋น
-```bash
-git clone [https://github.com/makonsen/baenpun-web-test](https://github.com/padillareyj/baengpun-web)
-```
-
-#npm install
-
-```bash
-npm install
-```
-
-# node.js
-install node.js
-```bash
-
-```
-
-# command line
-
-ใช้คำสั่งนี้เเพื่อรันไฟล์ทดสอบทั้งหมด
+3. Run Tests
+To run the Playwright tests, use the following command:
 ```bash
 npx playwright test
 ```
