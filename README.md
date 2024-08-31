@@ -1,4 +1,7 @@
 # Test Baengpun website
+This project is a test suite for the Baenpun web application using Playwright. It helps ensure that the web application functions as expected by running automated tests.
+
+
 clone Test Baengpun website
 ```bash
 git clone https://github.com/makonsen/baenpun-web-test
