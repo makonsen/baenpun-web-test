@@ -57,3 +57,6 @@ npx playwright test
   **Run tests in UI mode**
 
     npx playwright test  --ui
+
+ดูข้อมูลการใช้งานเพิ่มเติม
+https://playwright.dev/
