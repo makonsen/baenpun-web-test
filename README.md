@@ -58,5 +58,5 @@ npx playwright test
 
     npx playwright test  --ui
 
-ดูข้อมูลการใช้งานเพิ่มเติม
+View additional usage information ดูข้อมูลการใช้งานเพิ่มเติม
 https://playwright.dev/
