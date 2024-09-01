@@ -15,12 +15,12 @@ This project is a test suite for the Baenpun web application using Playwright. I
 
 ## สารบัญ
 ### It must be installed. สิ่งที่ต้องติดตั้ง
-node.js
-npm install
-wsl
-php
-mysql
-ubuntu
+- node.js
+- npm install
+- wsl
+- php
+- mysql
+- ubuntu
 
 ## Installation and Setup
 
