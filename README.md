@@ -31,7 +31,7 @@ git clone https://github.com/makonsen/baenpun-web-test.git
 ```
 
  2. โคลนเว็บไซต์แบ่งปั๋น
-โคลนแบ่งปั๋นตามลิ้งค์ด้านล่าง
+Clone Baengpun website and set by link โคลนแบ่งปั๋นและตั้งค่าตามลิ้งค์
 https://github.com/padillareyj/baengpun-web?tab=readme-ov-file
 
 ### 2. Install Dependencies
