@@ -10,8 +10,7 @@ This project is a test suite for the Baenpun web application using Playwright. I
 |**node.js**| v20.15.0 |
 |**playwirght**|1.46.1|
 |**PHP**| 8.3.10|
- 
-  Version 
+
 
 ## สารบัญ
 ### It must be installed. สิ่งที่ต้องติดตั้ง
