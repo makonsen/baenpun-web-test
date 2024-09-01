@@ -12,8 +12,7 @@ This project is a test suite for the Baenpun web application using Playwright. I
 |**PHP**| 8.3.10|
 
 
-## สารบัญ
-### It must be installed. สิ่งที่ต้องติดตั้ง
+## It must be installed. สิ่งที่ต้องติดตั้ง
 - node.js
 - npm install
 - wsl
