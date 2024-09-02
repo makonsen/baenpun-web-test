@@ -23,7 +23,7 @@ This project is a test suite for the Baenpun web application using Playwright. I
 ### 1. Clone the Repository
 To get started, clone the repository to your local machine:
 ```bash
-git clone https://github.com/makonsen/baenpun-web-test.git
+git clone https://github.com/makonsen/baengpun-web-test.git
 ```
 
 ### 2. Install Dependencies
