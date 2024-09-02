@@ -2,8 +2,6 @@
 # Test Baengpun website ระบบทดสอบเว็บไซแบ่งปั๋น.ไทย
 This project is a test suite for the Baenpun web application using Playwright. It helps ensure that the web application functions as expected by running automated tests.
 
-โปรเจ็กต์นี้เป็นชุดทดสอบสำหรับเว็บแอปพลิเคชัน Baenpun ที่ใช้ Playwright ซึ่งจะช่วยให้มั่นใจได้ว่าเว็บแอปพลิเคชันทำงานได้ตามที่คาดหวังโดยการทดสอบอัตโนมัติ
-
 ## เวอร์ชั้น
 |  | Version  |
 |--|--|
@@ -12,7 +10,7 @@ This project is a test suite for the Baenpun web application using Playwright. I
 |**PHP**| 8.3.10|
 
 
-## It must be installed. สิ่งที่ต้องติดตั้ง
+## It must be installed.
 - node.js
 - npm install
 - wsl
@@ -23,8 +21,6 @@ This project is a test suite for the Baenpun web application using Playwright. I
 ## Installation and Setup
 
 ### 1. Clone the Repository
-
-โคลนทดสอบเว็บแบ่งปั๋น
 To get started, clone the repository to your local machine:
 ```bash
 git clone https://github.com/makonsen/baenpun-web-test.git
@@ -44,7 +40,7 @@ To run the Playwright tests, use the following command:
 ```bash
 npx playwright test 
 ```
-**Run only tests รันเฉพาะเทส**
+**Run only tests**
 
     npx playwright test [ File Path ]
     
@@ -52,5 +48,5 @@ npx playwright test
 
     npx playwright test  --ui
 
-View additional usage information ดูข้อมูลการใช้งานเพิ่มเติม
+View additional usage information
 https://playwright.dev/
