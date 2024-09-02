@@ -24,15 +24,11 @@ This project is a test suite for the Baenpun web application using Playwright. I
 
 ### 1. Clone the Repository
 
- 1. โคลนทดสอบเว็บแบ่งปั๋น
+โคลนทดสอบเว็บแบ่งปั๋น
 To get started, clone the repository to your local machine:
 ```bash
 git clone https://github.com/makonsen/baenpun-web-test.git
 ```
-
- 2. โคลนเว็บไซต์แบ่งปั๋น
-Clone Baengpun website and set by link โคลนแบ่งปั๋นและตั้งค่าตามลิ้งค์
-https://github.com/padillareyj/baengpun-web?tab=readme-ov-file
 
 ### 2. Install Dependencies
 Navigate to the project directory and install the necessary dependencies using npm:
