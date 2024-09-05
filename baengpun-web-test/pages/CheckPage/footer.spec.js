@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 const serverUrl = process.env.SERVER_URL || 'http://localhost';
-
+const Dates = (new Date()).getTime();
 test.use({
   launchOptions: {
     slowMo: 700
@@ -66,6 +66,17 @@ test.describe('footer', () => {
       await expect(page.locator('h3').filter({ hasText: 'ร้านค้าชุมชนแบ่งปั๋น' })).toHaveText('ร้านค้าชุมชนแบ่งปั๋น');
     });
 
+  });
+
+  test('Follow baengpun', async ({ page }) => {
+    const email = 'makonsennatthi_' + Dates + '@gmail.com';
+    await page.goto(serverUrl);
+    await page.getByPlaceholder('กรอกอีเมล *').click();
+    await page.getByPlaceholder('กรอกอีเมล *').fill(email);
+    await page.getByRole('button', { name: 'ติดตาม' }).click();
+    await expect(page.getByRole('heading', { name: 'ติดตามรับข่าวสารเรียบร้อยแล้ว' })).toHaveText('ติดตามรับข่าวสารเรียบร้อยแล้ว');
+    await page.getByRole('heading', { name: 'ติดตามรับข่าวสารเรียบร้อยแล้ว' }).click();
+    await page.getByRole('button', { name: 'Ok' }).click();
   });
 
 });
