@@ -7,16 +7,12 @@ This project is a test suite for the Baenpun web application using Playwright. I
 |--|--|
 |**node.js**| v20.15.0 |
 |**playwirght**|1.46.1|
-|**PHP**| 8.3.10|
 
 
 ## It must be installed.
 - node.js
 - npm install
-- wsl
-- php
-- mysql
-- ubuntu
+- playwright
 
 ## Installation and Setup
 
