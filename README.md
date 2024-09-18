@@ -1,22 +1,18 @@
 
-# Test Baengpun website ระบบทดสอบเว็บไซแบ่งปั๋น.ไทย
+# Test Baengpun website
 This project is a test suite for the Baenpun web application using Playwright. It helps ensure that the web application functions as expected by running automated tests.
 
-## เวอร์ชั้น
-|  | Version  |
+## Version
+| app | Version  |
 |--|--|
 |**node.js**| v20.15.0 |
 |**playwirght**|1.46.1|
-|**PHP**| 8.3.10|
 
 
 ## It must be installed.
 - node.js
 - npm install
-- wsl
-- php
-- mysql
-- ubuntu
+- playwright
 
 ## Installation and Setup
 
