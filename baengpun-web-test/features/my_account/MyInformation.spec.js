@@ -9,7 +9,7 @@ test.use({
 });
 test.describe('My information', () => {
 
-  test('Duplicate values', async ({ page }) => {
+  test('Edit data with a name that is the same as another user', async ({ page }) => {
     await page.goto(serverUrl + '/login');
     await page.getByLabel('Qr Code Image').click();
     await page.getByLabel('Qr Code Image').fill('information');
@@ -41,11 +41,11 @@ test.describe('My information', () => {
     await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
     // login
     await page.getByRole('link', { name: '' }).click();
-    for (let i = 0; i < Prohibited_signs.length; i++) {
-      await page.getByLabel('ชื่อผู้ใช้').fill('information' + Prohibited_signs[i]);
-      await page.getByLabel('ชื่อ-นามสกุล').fill('information' + Prohibited_signs[i]);
-      await page.getByLabel('อีเมล').fill('makonsennatthi0@gmail.com' + Prohibited_signs[i]);
-      await page.getByLabel('เบอร์โทรศัพท์', { exact: true }).fill('0123456789' + Prohibited_signs[i]);
+    for (let i = 0; i < Wrong_mark.length; i++) {
+      await page.getByLabel('ชื่อผู้ใช้').fill('information' + Wrong_mark[i]);
+      await page.getByLabel('ชื่อ-นามสกุล').fill('information' + Wrong_mark[i]);
+      await page.getByLabel('อีเมล').fill('makonsennatthi0@gmail.com' + Wrong_mark[i]);
+      await page.getByLabel('เบอร์โทรศัพท์', { exact: true }).fill('0123456789' + Wrong_mark[i]);
       await page.getByLabel('กรุณาใส่รหัสผ่านเพื่อแก้ไขข้อมูลส่วนตัว').fill('0123456789');
       await page.getByRole('button', { name: 'บันทึก' }).click();
       await expect(page.getByText('ข้อมูล ชื่อผู้ใช้ ต้องมีเเค่ตัวอักษร ตัวเลข เครื่องหมายขีดกลาง เเละเครื่องหมายขีดล่าง เท่านั้น')).toHaveText('ข้อมูล ชื่อผู้ใช้ ต้องมีเเค่ตัวอักษร ตัวเลข เครื่องหมายขีดกลาง เเละเครื่องหมายขีดล่าง เท่านั้น');
@@ -53,7 +53,7 @@ test.describe('My information', () => {
     }
   });
 
-  test('Email with error mark', async ({ page }) => {
+  test('Enter an email address with other symbols', async ({ page }) => {
     const Prohibited_signs = ['@', '>', '<', '.']
     await page.goto(serverUrl + '/login');
     await page.getByLabel('Qr Code Image').fill('information');
@@ -63,9 +63,7 @@ test.describe('My information', () => {
     await page.getByRole('link', { name: '' }).click();
     for (let i = 0; i < Prohibited_signs.length; i++) {
       const mark = 'makonsennatthi0' + Prohibited_signs[i] + '@gmail.com'
-
-      await page.getByLabel('อีเมล').fill(mark);
-
+      await page.getByLabel('อีเมล').fill('#confirmPassword', 'AnotherPassword@123');
       await page.getByLabel('กรุณาใส่รหัสผ่านเพื่อแก้ไขข้อมูลส่วนตัว').fill(password);
       await page.getByRole('button', { name: 'บันทึก' }).click();
       if (await page.getByText('ข้อมูล อีเมล ต้องเป็นที่อยู่อีเมล')) {
@@ -92,23 +90,5 @@ test.describe('My information', () => {
     }
   });
 
-  // test('invalid email addresss', async ({ page }) => {
-  //   const Prohibited_signs = ['@', '+', '*', '/', '+-', '.', '!', '\'', '#', '$']
-  //   await page.goto(serverUrl + '/login');
-  //   await page.getByLabel('Qr Code Image').fill('information');
-  //   await page.getByLabel('รหัสผ่าน *').fill(password);
-  //   await page.getByRole('button', { name: 'เข้าสู่ระบบ', exact: true }).click();
-  //   // login
-  //   await page.getByRole('link', { name: '' }).click();
-  //   // for (let i = 0; i < Prohibited_signs.length; i++) {
-  //   await page.getByLabel('อีเมล').fill('makonsennatthi0@@gmail.com');
-  //   await page.getByLabel('กรุณาใส่รหัสผ่านเพื่อแก้ไขข้อมูลส่วนตัว').fill(password);
-  //   await page.getByRole('button', { name: 'บันทึก' }).click();
-
-  //   if (await page.getByText('ข้อมูล อีเมล ต้องเป็นที่อยู่อีเมล')) {
-  //     await page.getByLabel('เบอร์โทรศัพท์', { exact: true }).fill('0')
-  //   }
-  //   // }
-  // });
 
 });
