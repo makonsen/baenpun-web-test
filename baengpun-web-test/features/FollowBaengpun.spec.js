@@ -22,11 +22,6 @@ const emailData = [
     { invalidEmail: 'user@domain.c0m' },
     { invalidEmail: '-user@domain.com' },
 ];
-test.use({
-    launchOptions: {
-        slowMo: 500
-    },
-});
 
 test('valid email address', async ({ page }) => {
     await page.goto(serverUrl);
