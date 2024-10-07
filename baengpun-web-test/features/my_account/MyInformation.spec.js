@@ -82,7 +82,7 @@ test.describe('My information', () => {
     await page.getByRole('link', { name: '' }).click();
     for (let i = 0; i < domainname.length; i++) {
       const domain = 'makonsennatthi0@' + domainname[i]
-      if (await page.getByText('ข้อมูล อีเมล ต้องเป็นที่อยู่อีเมล') || empty) {
+      if (page.getByText('ข้อมูล อีเมล ต้องเป็นที่อยู่อีเมล') || empty) {
         await page.getByLabel('อีเมล').fill(domain);
       }
       await page.getByLabel('กรุณาใส่รหัสผ่านเพื่อแก้ไขข้อมูลส่วนตัว').fill(password);
