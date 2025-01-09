@@ -54,7 +54,7 @@ test('Correct value', async ({ page }) => {
 
     // ยืนยันบัญชี Verify Account
     await page.goto(serverUrl + '/scripts/verify-email-auto?email=' + email);
-
+    
     // ล็อคอิน Login
     await page.goto(serverUrl + '/login');
     await page.getByLabel('Qr Code Image').fill('user_' + Dates);
@@ -74,33 +74,6 @@ test('Correct value', async ({ page }) => {
     await expect(page.getByLabel('อีเมล')).toHaveValue('makonsennatthi_' + Dates + '@gmail.com');
 });
 
-// test('Sign up with a symbolic username', async ({ page }) => {
-//     const symbol = ['-', '_', '+', '*', '/', '@', '#', '$', '%', '^', '&', '()']
-//     await page.goto(serverUrl + '/register');
-//     await page.getByLabel('ชื่อผู้ใช้').fill('มกรเสน  user_' + Dates); // ใส่ชื่อ นาม สกุล Enter your first and last name
-//     await page.getByLabel('อีเมล').fill(email);// ใส่อีเมล Enter email
-//     await page.getByLabel('ตั้งรหัสผ่าน').fill(password);// ใส่รหัสผ่าน Enter password
-//     await page.getByLabel('ยืนยันรหัสผ่าน').fill(password);// ยืนยันรหัสผ่าน Confirm password
-//     await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');// ใส่เบอร์ Enter number
-//     for (let i = 0; i < symbol.length; i++) {
-//         await page.locator('#username').fill(symbol[i]);// ใส่ชื่อผู้ใช้ Enter username
-//         await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
-//         await expect(page.getByText('ข้อมูล ชื่อผู้ใช้ ต้องมีเเค่ตัวอักษร ตัวเลข เครื่องหมายขีดกลาง เเละเครื่องหมายขี')).toBeHidden(page.goto(serverUrl + '/scripts/verify-email-auto?email=' + email))
-//         // // await expect(page.getByText('ข้อมูล ชื่อผู้ใช้ ไม่สามารถใช้ได้').click()).toBeHidden(page.getByLabel('เบอร์โทรศัพท์').fill('00'))
-
-//         if (page.getByText('ข้อมูล ชื่อผู้ใช้ ต้องมีเเค่ตัวอักษร ตัวเลข เครื่องหมายขีดกลาง เเละเครื่องหมายขี')) {
-//             // ยืนยันบัญชี Verify Account
-//             await page.getByLabel('เบอร์โทรศัพท์').fill('11');
-//             // await page.goto(serverUrl + '/scripts/verify-email-auto?email=' + email);
-//         } else if (page.getByText('ข้อมูล ชื่อผู้ใช้ ไม่สามารถใช้ได้')) {
-//             await page.getByLabel('เบอร์โทรศัพท์').fill('00');
-//         }
-//     }
-
-// });
-
-// Sign up sing another domain name
-
 emailData.forEach(({ invalidEmail }) => {
     test(`Signed up with an invalid email address : ${invalidEmail}`, async ({ page }) => {
         await page.goto(serverUrl + '/register');
@@ -114,14 +87,6 @@ emailData.forEach(({ invalidEmail }) => {
         await expect(page.getByText('ข้อมูล อีเมล ต้องเป็นที่อยู่อีเมล')).toHaveText('ข้อมูล อีเมล ต้องเป็นที่อยู่อีเมล');
     });
 });
-
-// Sign up sing another domain name
-
-// Sign up with an existing email address
-
-// Sign up with a code less than 8 digits
-
-// Sign up with a very long password
 
 numberData.forEach(({ number, expects }) => {
     test(`Sign up with an invalid number:  ${number}`, async ({ page }) => {
@@ -177,19 +142,4 @@ test('Sign up with a password with a symbol', async ({ page }) => {
     await page.getByLabel('ยืนยันรหัสผ่าน').fill(password + symbol[0]);
     await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');
     await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
-})
-
-test('Apply with a number with a symbol', async ({ page }) => {
-    for (let i = 0; i < symbol.length; i++) {
-        const Date_symbol = (new Date()).getTime();
-        await page.goto(serverUrl + '/register');
-        await page.locator('#username').fill('user_' + Date_symbol);// ใส่ชื่อผู้ใช้ Enter username
-        await page.getByLabel('ชื่อผู้ใช้').fill('มกรเสน  user_' + Date_symbol); // ใส่ชื่อ นาม สกุล Enter your first and last name
-        await page.getByLabel('อีเมล').fill('makonsennatthi_' + Date_symbol + '@gmail.com');// ใส่อีเมล Enter email
-        await page.getByLabel('ตั้งรหัสผ่าน').fill('รหัส' + Date_symbol);// ใส่รหัสผ่าน Enter password
-        await page.getByLabel('ยืนยันรหัสผ่าน').fill('รหัส' + Date_symbol);// ยืนยันรหัสผ่าน Confirm password
-        await page.getByLabel('เบอร์โทรศัพท์').fill('0123456' + symbol[i]);// ใส่เบอร์ Enter number
-        await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
-    };
 });
-
