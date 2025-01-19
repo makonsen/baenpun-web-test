@@ -29,9 +29,9 @@ const emailData = [
     { invalidEmail: 'username@domain.com.' },
     { invalidEmail: 'username@.domain.com' },
     { invalidEmail: 'user name@domain.com' },
-    { invalidEmail: 'username@domain.c' },
     { invalidEmail: 'user@domain.c_m' },
     { invalidEmail: 'user@domain.c*m' },
+    { invalidEmail: 'username@domain.c' },
     { invalidEmail: 'user@domain.c0m' },
     { invalidEmail: '-user@domain.com' },
 ];
@@ -66,8 +66,9 @@ test('Correct value', async ({ page }) => {
 
     // ตรวจสอบค่าต่างๆ
     await page.goto(serverUrl);
-    await page.getByRole('link', { name: '' }).click();
-    await page.getByRole('button', { name: 'Close' }).click();
+    await page.getByRole('link', { name: 'บัญชีของฉัน', exact: true }).hover();
+    await page.getByRole('link', { name: 'ข้อมูลของฉัน' }).click();
+
     await expect(page.getByRole('link', { name: 'บัญชีของฉัน (มกรเสน' })).toHaveText('บัญชีของฉัน (มกรเสน  user_' + Dates + ')');
     await expect(page.getByLabel('ชื่อผู้ใช้')).toHaveValue('user_' + Dates);
     await expect(page.getByLabel('ชื่อ-นามสกุล')).toHaveValue('มกรเสน  user_' + Dates);
@@ -85,6 +86,7 @@ emailData.forEach(({ invalidEmail }) => {
         await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');
         await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
         await expect(page.getByText('ข้อมูล อีเมล ต้องเป็นที่อยู่อีเมล')).toHaveText('ข้อมูล อีเมล ต้องเป็นที่อยู่อีเมล');
+
     });
 });
 
@@ -109,15 +111,17 @@ test('Registration with empty value', async ({ page }) => {
 });
 
 test('Registration with duplicate email', async ({ page }) => {
-    await page.goto(serverUrl + '/register');
-    await page.locator('#username').fill('user_' + Dates);// ใส่ชื่อผู้ใช้ Enter username
-    await page.getByLabel('ชื่อผู้ใช้').fill('มกรเสน  user_' + Dates); // ใส่ชื่อ นาม สกุล Enter your first and last name
-    await page.getByLabel('อีเมล').fill('testing@gmail.com');// ใส่อีเมล Enter email
-    await page.getByLabel('ตั้งรหัสผ่าน').fill(password);// ใส่รหัสผ่าน Enter password
-    await page.getByLabel('ยืนยันรหัสผ่าน').fill(password);// ยืนยันรหัสผ่าน Confirm password
-    await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');// ใส่เบอร์ Enter number
-    await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
-    await expect(page.getByText('ข้อมูล อีเมล ไม่สามารถใช้ได้')).toHaveText('ข้อมูล อีเมล ไม่สามารถใช้ได้');
+    for (let i = 0; i < 2; i++) {
+        await page.goto(serverUrl + '/register');
+        await page.locator('#username').fill('user_' + Dates);// ใส่ชื่อผู้ใช้ Enter username
+        await page.getByLabel('ชื่อผู้ใช้').fill('มกรเสน  user_' + Dates); // ใส่ชื่อ นาม สกุล Enter your first and last name
+        await page.getByLabel('อีเมล').fill('testing@gmail.com');// ใส่อีเมล Enter email
+        await page.getByLabel('ตั้งรหัสผ่าน').fill(password);// ใส่รหัสผ่าน Enter password
+        await page.getByLabel('ยืนยันรหัสผ่าน').fill(password);// ยืนยันรหัสผ่าน Confirm password
+        await page.getByLabel('เบอร์โทรศัพท์').fill('0123456789');// ใส่เบอร์ Enter number
+        await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
+        await expect(page.getByText('ข้อมูล อีเมล ไม่สามารถใช้ได้')).toHaveText('ข้อมูล อีเมล ไม่สามารถใช้ได้');
+    }
 });
 
 test('Verification passwords do not match', async ({ page }) => {
