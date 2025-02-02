@@ -5,8 +5,6 @@ const username = 'user_' + Dates;
 const email = 'makonsennatthi_' + Dates + '@gmail.com';
 test('Order as a guest', async ({ page }) => {
     await page.goto('https://cloudshop.vclass.in.th/product/64');
-    // await page.getByPlaceholder('Please tell us what kind of').click();
-    // await page.getByPlaceholder('Please tell us what kind of').fill('หมายเหตุ');
     await page.getByRole('button', { name: 'ใส่รถเข็น ' }).click();
     await page.getByText('เลือกสินค้า', { exact: true }).click();
     await page.getByRole('button', { name: 'ดำเนินการต่อ' }).click();
