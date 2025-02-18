@@ -2,12 +2,17 @@ import { test, expect } from '@playwright/test';
 
 const serverUrl = process.env.SERVER_URL || 'http://localhost';
 const Dates = (new Date()).getTime();
-const email = 'makonsennatthi_' + Dates + '@gmail.com';
+const email = 'test_' + Dates + '@email.com';
 const username = 'user_' + Dates;
 const name = 'มกรเสน  user_' + Dates;
 const password = 'รหัส' + Dates;
 const phone = '0123456789';
+const mailSender = process.env.MAIL_SENDER || 'Local Mail';
+const mailHog = process.env.MAIL_HOG || 'http://localhost:8025';
 
+console.log('mailSender:', mailSender);
+// exit
+process.exit(0);
 const symbol = ['@', '+', '*', '/', '+-', '.', '!', '\'', '#', '$'];
 const numberData = [
     { number: '123', expects: '' },
@@ -22,7 +27,7 @@ const numberData = [
     { number: '0123456789', expects: '' },
 ];
 const emailData = [
-    { invalidEmail: '@gmail.com' },
+    { invalidEmail: '@email.com' },
     { invalidEmail: 'username@.com' },
     { invalidEmail: 'username@domain.' },
     { invalidEmail: 'username@domain..com' },
@@ -58,8 +63,8 @@ test('Correct value', async ({ page }) => {
     await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
 
     // ยืนยันบัญชี Verify Account
-    await page.goto('http://localhost:8025/#');
-    await page.getByText('Local Mail '+ email).first().click();
+    await page.goto(mailHog);
+    await page.getByText(mailSender + ' ' + email).first().click();
     await page.frameLocator('#preview-html').getByRole('link', { name: 'ยืนยันอีเมลจากระบบแบ่งปั๋น' }).click();
 
     // ตรวจสอบค่าต่างๆ
@@ -83,8 +88,8 @@ test('Test registration and login', async ({ page }) => {
     await page.getByRole('button', { name: 'ลงทะเบียน' }).click();
 
     // ยืนยันบัญชี Verify Account
-    await page.goto('http://localhost:8025/#');
-    await page.getByText('Local Mail '+ email).first().click();
+    await page.goto( mailHog);
+    await page.getByText( MailSender + ' ' + email).first().click();
     await page.frameLocator('#preview-html').getByRole('link', { name: 'ยืนยันอีเมลจากระบบแบ่งปั๋น' }).click();
     
     // ล็อคอิน Logout
