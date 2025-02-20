@@ -2,9 +2,11 @@ import { test, expect } from '@playwright/test';
 const serverUrl = process.env.SERVER_URL || 'http://localhost';
 const Dates = (new Date()).getTime();
 const username = 'user_' + Dates;
-const email = 'makonsennatthi_' + Dates + '@gmail.com';
+const email = 'test' + Dates + '@email.com';
+const productTestID = process.env.PRODUCT_TEST_ID || '1';
+
 test('Order as a guest', async ({ page }) => {
-    await page.goto('https://cloudshop.vclass.in.th/product/64');
+    await page.goto(serverUrl + '/product/' + productTestID);
     await page.getByRole('button', { name: 'ใส่รถเข็น ' }).click();
     await page.getByText('เลือกสินค้า', { exact: true }).click();
     await page.getByRole('button', { name: 'ดำเนินการต่อ' }).click();
