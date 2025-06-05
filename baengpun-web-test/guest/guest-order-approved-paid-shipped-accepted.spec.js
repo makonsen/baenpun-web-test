@@ -36,8 +36,7 @@ test('Order as a guest - Complete', async ({ page }) => {
     await page.getByRole('button', { name: 'บันทึกที่อยู่' }).click();
     await page.getByRole('button', { name: 'Ok' }).click();
     await page.getByRole('button', { name: 'ดำเนินการต่อ' }).click();
-    await page.getByRole('link', { name: 'ดูรายละเอียดคำสั่งซื้อ' }).click();
-
+    
     // click on 'ดูรายละเอียดคำสั่งซื้อ'(Order Details) link
     await page.getByRole('link', { name: 'ดูรายละเอียดคำสั่งซื้อ' }).click();
 

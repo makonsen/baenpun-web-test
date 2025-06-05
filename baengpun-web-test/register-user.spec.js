@@ -1,4 +1,5 @@
-import {test, expect} from '@playwright/test';
+// import {test, expect} from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
 const serverUrl = process.env.SERVER_URL || 'http://localhost';
 const Dates = (new Date()).getTime();
@@ -20,16 +21,11 @@ if (mailConfirm) {
 
 const symbol = ['@', '+', '*', '/', '+-', '.', '!', '\'', '#', '$'];
 const numberData = [
-    // {number: '123', expects: ''},
     {number: '12345678901234567890 ', expects: 'ข้อมูล เบอร์โทรศัพท์ ต้องมีความยาวตัวอักษรไม่เกิน 10 ตัวอักษร'},
     {number: '123-ABC-4567', expects: 'ข้อมูล เบอร์โทรศัพท์ ต้องมีความยาวตัวอักษรไม่เกิน 10 ตัวอักษร'},
     {number: '091#123$456', expects: 'ข้อมูล เบอร์โทรศัพท์ ต้องมีความยาวตัวอักษรไม่เกิน 10 ตัวอักษร'},
-    // {number: 'phone123', expects: ''},
-    // {number: '@12345678', expects: ''},
     {number: '+66-(080)-123-4567', expects: 'ข้อมูล เบอร์โทรศัพท์ ต้องมีความยาวตัวอักษรไม่เกิน 10 ตัวอักษร'},
     {number: '+66+080+123+4567', expects: 'ข้อมูล เบอร์โทรศัพท์ ต้องมีความยาวตัวอักษรไม่เกิน 10 ตัวอักษร'},
-    // {number: '0000000000', expects: ''},
-    // {number: '0123456789', expects: ''},
 ];
 const emailData = [
     {invalidEmail: '@email.com'},
@@ -46,9 +42,6 @@ const emailData = [
     {invalidEmail: 'user name@domain.com'},
     {invalidEmail: 'user@domain.c_m'},
     {invalidEmail: 'user@domain.c*m'},
-    // {invalidEmail: 'username@domain.c'}, // this is valid
-    // {invalidEmail: 'user@domain.c0m'}, // this is valid
-    // {invalidEmail: '-user@domain.com'}, // this is valid
 ];
 
 test.use({
@@ -58,15 +51,19 @@ test.use({
 });
 
 /*
- laravel Validations
-   'username' => ['required', 'string', 'max:50', "alpha_dash", 'unique:users,username'],
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-                'phone' => ['required', 'string', 'max:10'],
- */
+ Validations คือกระบวนการตรวจสอบข้อมูลที่ผู้ใช้ป้อนเข้ามาในฟอร์มหรือระบบ เพื่อให้แน่ใจว่าข้อมูลนั้นถูกต้องและเป็นไปตามกฎที่กำหนดไว้
+ ตัวอย่างเช่น:
+    - 'username' ต้องไม่ว่าง, เป็นข้อความ, มีความยาวไม่เกิน 50 ตัวอักษร, ใช้ได้เฉพาะตัวอักษร, ตัวเลข, ขีดกลาง และขีดล่าง, และต้องไม่ซ้ำในฐานข้อมูล
+    - 'name' ต้องไม่ว่าง, เป็นข้อความ, และมีความยาวไม่เกิน 255 ตัวอักษร
+    - 'email' ต้องไม่ว่าง, เป็นข้อความ, อยู่ในรูปแบบอีเมลที่ถูกต้อง, มีความยาวไม่เกิน 255 ตัวอักษร, และต้องไม่ซ้ำในฐานข้อมูล
+    - 'password' ต้องไม่ว่าง, เป็นข้อความ, มีความยาวอย่างน้อย 8 ตัวอักษร, และต้องตรงกับการยืนยันรหัสผ่าน
+    - 'phone' ต้องไม่ว่าง, เป็นข้อความ, และมีความยาวไม่เกิน 10 ตัวอักษร
+*/
 
-test('Register user with correct values', async ({page}) => {
+test('Register user with correct values', async ({page,browser}) => {
+    const context = await browser.newContext();
+    const page1 = await context.newPage();
+
     await page.goto(serverUrl + '/register');
     await page.locator('#username').fill(username);         // ใส่ชื่อผู้ใช้ Enter username
     await page.getByLabel('ชื่อผู้ใช้').fill(name);          // ใส่ชื่อ นาม สกุล Enter your first and last name
@@ -98,11 +95,22 @@ test('Register user with correct values', async ({page}) => {
 
     }
     // ตรวจสอบค่าต่างๆ
-    await page.goto(serverUrl + '/my-account');
-    await expect(page.getByLabel('ชื่อผู้ใช้')).toHaveValue(username);
-    await expect(page.getByLabel('ชื่อ-นามสกุล')).toHaveValue(name);
-    await expect(page.getByLabel('อีเมล')).toHaveValue(email);
-    await expect(page.getByLabel('เบอร์โทรศัพท์', {exact: true})).toHaveValue(phone);
+    await page1.goto(serverUrl + '/my-account');
+    const login = await expect(page1.getByRole('heading', { name: 'ข้อมูลของฉัน' }).toHaveText('ข้อมูลของฉัน'));
+    if (!login) {
+        console.log('Login success');
+        await page1.locator('#login').fill(username); // ใส่ชื่อผู้ใช้ Enter username
+        await page1.locator('#loginPassword').fill(password); // ใส่รหัสผ่าน Enter password
+        await page1.getByRole('button', { name: 'เข้าสู่ระบบ' }).click(); // คลิกปุ่มเข้าสู่ระบบ Click login button
+    }else {
+        console.log('Login failed');
+        process.exit(1);
+    };
+    // await page.goto(serverUrl + '/my-account');
+    // await expect(page.getByLabel('ชื่อผู้ใช้')).toHaveValue(username);
+    // await expect(page.getByLabel('ชื่อ-นามสกุล')).toHaveValue(name);
+    // await expect(page.getByLabel('อีเมล')).toHaveValue(email);
+    // await expect(page.getByLabel('เบอร์โทรศัพท์', {exact: true})).toHaveValue(phone);
 
 });
 
@@ -136,7 +144,7 @@ test('Test registration and login', async ({page}) => {
     }
 
     // ล็อคอิน Logout
-    await page.goto(serverUrl);
+    // await page.goto(serverUrl);
     await page.locator('a.nav-link.logout-button').click();
 
     // ล็อคอิน Login

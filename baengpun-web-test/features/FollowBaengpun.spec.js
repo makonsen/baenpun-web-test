@@ -16,8 +16,6 @@ const emailData = [
     { invalidEmail: '_@.domain.com' },
     { invalidEmail: '_@domain.c_m' },
     { invalidEmail: '_@domain.c*m' },
-    { invalidEmail: '_@domain.c0m' },
-    { invalidEmail: '_@domain.c' },
 ];
 
 test('valid email address', async ({ page }) => {

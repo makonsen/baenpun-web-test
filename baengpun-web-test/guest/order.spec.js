@@ -4,6 +4,13 @@ const Dates = (new Date()).getTime();
 const username = 'user_' + Dates;
 const email = 'test' + Dates + '@email.com';
 const productTestID = process.env.PRODUCT_TEST_ID || '1';
+const SLOW_MO = process.env.SLOW_MO || 500;
+
+test.use({
+    launchOptions: {
+        slowMo: SLOW_MO
+    },
+});
 
 test('Order as a guest', async ({ page }) => {
     await page.goto(serverUrl + '/product/' + productTestID);

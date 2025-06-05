@@ -8,11 +8,15 @@ const name = 'มกรเสน  user_' + Dates;
 const password = 'รหัส' + Dates;
 const phone = '0123456789';
 const mailSender = process.env.MAIL_SENDER || 'Local Mail';
-const mailHog = process.env.MAIL_HOG || 'http://localhost:8025';
+const mailHog = process.env.MAILHOG_SERVER || 'http://localhost:8025';
+const SLOW_MO = process.env.SLOW_MO || 500;
 
 console.log('mailSender:', mailSender);
 // exit
-process.exit(0);
+if (!mailSender) {
+    console.error('MAIL_SENDER is not defined. Exiting...');
+    process.exit(1); // ออกจากโปรแกรมพร้อมรหัสข้อผิดพลาด
+}
 const symbol = ['@', '+', '*', '/', '+-', '.', '!', '\'', '#', '$'];
 const numberData = [
     { number: '123', expects: '' },
@@ -46,9 +50,10 @@ const emailData = [
     { invalidEmail: '-user@domain.com' },
 ];
 
+
 test.use({
     launchOptions: {
-        slowMo: 500
+        slowMo: SLOW_MO
     },
 });
 
